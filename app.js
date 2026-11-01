@@ -24,7 +24,7 @@ async function main() {
     const card = await res.json();
     messages = card.messages;
     $("title").textContent = card.title || "圖卡分享";
-    $("desc").textContent = `共 ${messages.length} 則訊息。（v6）`;
+    $("desc").textContent = `共 ${messages.length} 則訊息。（v7）`;
 
     await liff.init({ liffId: LIFF_ID });
     if (!liff.isLoggedIn()) { liff.login({ redirectUri: location.href }); return; }
@@ -66,6 +66,12 @@ here.addEventListener("click", async () => {
   } catch (e) {
     say("送出失敗：" + (e.code ? e.code + " " : "") + (e.message || e));
     here.disabled = false;
+    // Token was issued before chat_message.write was added: log in again once.
+    if (e.code === "FORBIDDEN" && !sessionStorage.getItem("relogin")) {
+      sessionStorage.setItem("relogin", "1");
+      liff.logout();
+      liff.login({ redirectUri: location.href });
+    }
   }
 });
 
