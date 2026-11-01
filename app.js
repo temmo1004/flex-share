@@ -24,7 +24,7 @@ async function main() {
     const card = await res.json();
     messages = card.messages;
     $("title").textContent = card.title || "圖卡分享";
-    $("desc").textContent = `共 ${messages.length} 則訊息。（v8）`;
+    $("desc").textContent = `共 ${messages.length} 則訊息。（v7）`;
 
     await liff.init({ liffId: LIFF_ID });
     if (!liff.isLoggedIn()) { liff.login({ redirectUri: location.href }); return; }
@@ -60,9 +60,6 @@ $("share").addEventListener("click", async () => {
 here.addEventListener("click", async () => {
   here.disabled = true;
   try {
-    const p = await liff.permission.query("chat_message.write");
-    say("傳送權限：" + p.state);
-    if (p.state !== "granted") { await liff.permission.requestAll(); return; }
     await liff.sendMessages(messages);
     say("已送到目前聊天室。");
     setTimeout(() => liff.closeWindow(), 800);
