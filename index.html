@@ -58,7 +58,7 @@ async function main() {
 $("share").addEventListener("click", async () => {
   $("share").disabled = true;
   try {
-    const r = await liff.shareTargetPicker(messages, { isMultiple: false });
+    const r = await liff.shareTargetPicker(messages, { isMultiple: true });
     if (r) {
       say("已傳送。");
       setTimeout(() => liff.closeWindow(), 800);
