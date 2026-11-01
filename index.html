@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>圖卡分享</title>
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<style>
+  body { margin: 0; background: #0e1a2a; color: #f5f5f5; font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif; }
+  main { max-width: 480px; margin: 0 auto; padding: 32px 20px; }
+  h1 { color: #f6a83a; font-size: 22px; margin: 0 0 8px; }
+  p { color: #94a4b8; font-size: 15px; line-height: 1.6; }
+  button { width: 100%; padding: 16px; margin-top: 20px; border: 0; border-radius: 10px; background: #f6a83a; color: #0e1a2a; font-size: 17px; font-weight: 700; }
+  button:disabled { opacity: .5; }
+  #status { margin-top: 16px; font-size: 14px; color: #94a4b8; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">圖卡分享</h1>
+  <p id="desc">載入中…</p>
+  <button id="share" disabled>選聊天室並傳送</button>
+  <div id="status"></div>
+</main>
+<script>
+const LIFF_ID = "__LIFF_ID__";
+const params = new URLSearchParams(location.search);
+// liff.state carries the query when opened through liff.line.me
+const state = params.get("liff.state");
+const inner = state ? new URLSearchParams(state.split("?")[1] || "") : params;
+const cardName = (inner.get("card") || params.get("card") || "tutorial").replace(/[^a-z0-9_-]/gi, "");
+const $ = (id) => document.getElementById(id);
+const say = (t) => { $("status").textContent = t; };
+
+let messages = null;
+
+async function main() {
+  try {
+    const res = await fetch(`cards/${cardName}.json?v=${Date.now()}`);
+    if (!res.ok) throw new Error(`找不到圖卡 ${cardName}`);
+    const card = await res.json();
+    messages = card.messages;
+    $("title").textContent = card.title || "圖卡分享";
+    $("desc").textContent = `共 ${messages.length} 則訊息。按下按鈕，選要傳送的聊天室。`;
+
+    await liff.init({ liffId: LIFF_ID });
+    if (!liff.isLoggedIn()) { liff.login({ redirectUri: location.href }); return; }
+    if (!liff.isApiAvailable("shareTargetPicker")) {
+      say("這個環境不能用分享功能，請在 LINE 裡打開這個連結。");
+      return;
+    }
+    $("share").disabled = false;
+  } catch (e) {
+    say("錯誤：" + (e.message || e));
+  }
+}
+
+$("share").addEventListener("click", async () => {
+  $("share").disabled = true;
+  try {
+    const r = await liff.shareTargetPicker(messages, { isMultiple: false });
+    if (r) {
+      say("已傳送。");
+      setTimeout(() => liff.closeWindow(), 800);
+    } else {
+      say("已取消。");
+      $("share").disabled = false;
+    }
+  } catch (e) {
+    say("傳送失敗：" + (e.message || e));
+    $("share").disabled = false;
+  }
+});
+
+main();
+</script>
+</body>
+</html>

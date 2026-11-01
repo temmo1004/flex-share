@@ -1,0 +1,96 @@
+{
+  "title": "LINE 圖卡教學",
+  "messages": [
+    {
+      "type": "flex",
+      "altText": "【教學】個人帳號怎麼在群組發 Flex 圖卡",
+      "contents": {
+        "type": "bubble",
+        "size": "mega",
+        "body": {
+          "type": "box", "layout": "vertical", "spacing": "sm", "paddingAll": "18px", "backgroundColor": "#0e1a2a",
+          "contents": [
+            { "type": "text", "text": "LINE 圖卡教學", "size": "xxs", "color": "#f6a83a", "weight": "bold" },
+            { "type": "text", "text": "個人帳號怎麼在群組發圖卡", "size": "xl", "color": "#ffffff", "weight": "bold", "wrap": true },
+            { "type": "text", "text": "就是群組摘要那種可以按的卡片", "size": "xs", "color": "#94a4b8", "wrap": true },
+            { "type": "separator", "color": "#2a3a4f", "margin": "lg" },
+            {
+              "type": "box", "layout": "vertical", "spacing": "md", "margin": "lg",
+              "contents": [
+                { "type": "box", "layout": "baseline", "spacing": "sm", "contents": [
+                  { "type": "text", "text": "1️⃣", "size": "sm", "flex": 0 },
+                  { "type": "text", "text": "在 LINE Developers 開一個 LINE Login channel，新增 LIFF，打開 Share target picker", "size": "sm", "color": "#f5f5f5", "wrap": true, "flex": 1 } ] },
+                { "type": "box", "layout": "baseline", "spacing": "sm", "contents": [
+                  { "type": "text", "text": "2️⃣", "size": "sm", "flex": 0 },
+                  { "type": "text", "text": "用 Flex Message Simulator 排卡片，複製 JSON", "size": "sm", "color": "#f5f5f5", "wrap": true, "flex": 1 } ] },
+                { "type": "box", "layout": "baseline", "spacing": "sm", "contents": [
+                  { "type": "text", "text": "3️⃣", "size": "sm", "flex": 0 },
+                  { "type": "text", "text": "做一個網頁：liff.init 之後呼叫 liff.shareTargetPicker(訊息)", "size": "sm", "color": "#f5f5f5", "wrap": true, "flex": 1 } ] },
+                { "type": "box", "layout": "baseline", "spacing": "sm", "contents": [
+                  { "type": "text", "text": "4️⃣", "size": "sm", "flex": 0 },
+                  { "type": "text", "text": "網頁放 GitHub Pages，網址填進 LIFF 的 Endpoint", "size": "sm", "color": "#f5f5f5", "wrap": true, "flex": 1 } ] },
+                { "type": "box", "layout": "baseline", "spacing": "sm", "contents": [
+                  { "type": "text", "text": "5️⃣", "size": "sm", "flex": 0 },
+                  { "type": "text", "text": "在 LINE 裡開 liff.line.me 連結 → 選群組 → 卡片就用你自己的名字發出去", "size": "sm", "color": "#f5f5f5", "wrap": true, "flex": 1 } ] }
+              ]
+            }
+          ]
+        },
+        "footer": {
+          "type": "box", "layout": "vertical", "spacing": "sm", "paddingAll": "16px", "paddingTop": "4px", "backgroundColor": "#0e1a2a",
+          "contents": [
+            { "type": "box", "layout": "vertical", "paddingAll": "12px", "cornerRadius": "8px", "backgroundColor": "#f6a83a",
+              "action": { "type": "uri", "label": "Flex 排版工具", "uri": "https://developers.line.biz/flex-simulator/" },
+              "contents": [ { "type": "text", "text": "Flex 排版工具", "size": "sm", "align": "center", "color": "#0e1a2a", "weight": "bold" } ] },
+            { "type": "box", "layout": "vertical", "paddingAll": "10px", "cornerRadius": "8px", "borderWidth": "1px", "borderColor": "#f6a83a",
+              "action": { "type": "uri", "label": "shareTargetPicker 文件", "uri": "https://developers.line.biz/en/reference/liff/#share-target-picker" },
+              "contents": [ { "type": "text", "text": "shareTargetPicker 文件", "size": "sm", "align": "center", "color": "#f6a83a", "weight": "bold" } ] }
+          ]
+        }
+      }
+    },
+    {
+      "type": "flex",
+      "altText": "【教學】Flex 圖卡的版型重點",
+      "contents": {
+        "type": "bubble",
+        "size": "mega",
+        "body": {
+          "type": "box", "layout": "vertical", "spacing": "md", "paddingAll": "18px", "backgroundColor": "#0e1a2a",
+          "contents": [
+            { "type": "text", "text": "版型重點", "size": "lg", "color": "#f6a83a", "weight": "bold" },
+            { "type": "box", "layout": "vertical", "spacing": "xs", "paddingAll": "12px", "cornerRadius": "10px", "backgroundColor": "#1b2b3d",
+              "contents": [
+                { "type": "text", "text": "「個人帳號不能直接貼 Flex JSON，要透過 LIFF 分享才發得出去」", "size": "sm", "color": "#f5f5f5", "wrap": true },
+                { "type": "text", "text": "發送方式", "size": "xs", "color": "#94a4b8", "align": "end" } ] },
+            { "type": "box", "layout": "vertical", "spacing": "xs", "paddingAll": "12px", "cornerRadius": "10px", "backgroundColor": "#1b2b3d",
+              "contents": [
+                { "type": "text", "text": "「底色 #0e1a2a、框 #1b2b3d、強調 #f6a83a、小字 #94a4b8」", "size": "sm", "color": "#f5f5f5", "wrap": true },
+                { "type": "text", "text": "配色", "size": "xs", "color": "#94a4b8", "align": "end" } ] },
+            { "type": "box", "layout": "vertical", "spacing": "xs", "paddingAll": "12px", "cornerRadius": "10px", "backgroundColor": "#1b2b3d",
+              "contents": [
+                { "type": "text", "text": "「altText 會出現在聊天列表和通知，要寫成一句看得懂的摘要」", "size": "sm", "color": "#f5f5f5", "wrap": true },
+                { "type": "text", "text": "altText", "size": "xs", "color": "#94a4b8", "align": "end" } ] },
+            { "type": "separator", "color": "#2a3a4f", "margin": "lg" },
+            { "type": "text", "text": "工具與資源", "size": "md", "color": "#f6a83a", "weight": "bold", "margin": "lg" },
+            { "type": "box", "layout": "baseline", "spacing": "sm",
+              "action": { "type": "uri", "label": "LINE Developers 後台", "uri": "https://developers.line.biz/console/" },
+              "contents": [
+                { "type": "text", "text": "🔗", "size": "sm", "flex": 0 },
+                { "type": "text", "text": "LINE Developers 後台", "size": "sm", "color": "#f5f5f5", "decoration": "underline", "wrap": true, "flex": 1 } ] },
+            { "type": "box", "layout": "baseline", "spacing": "sm",
+              "action": { "type": "uri", "label": "Flex Message 說明", "uri": "https://developers.line.biz/en/docs/messaging-api/using-flex-messages/" },
+              "contents": [
+                { "type": "text", "text": "🔗", "size": "sm", "flex": 0 },
+                { "type": "text", "text": "Flex Message 說明", "size": "sm", "color": "#f5f5f5", "decoration": "underline", "wrap": true, "flex": 1 } ] },
+            { "type": "box", "layout": "baseline", "spacing": "sm",
+              "action": { "type": "uri", "label": "LIFF 開發說明", "uri": "https://developers.line.biz/en/docs/liff/overview/" },
+              "contents": [
+                { "type": "text", "text": "🔗", "size": "sm", "flex": 0 },
+                { "type": "text", "text": "LIFF 開發說明", "size": "sm", "color": "#f5f5f5", "decoration": "underline", "wrap": true, "flex": 1 } ] }
+          ]
+        }
+      }
+    }
+  ]
+}
