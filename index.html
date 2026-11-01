@@ -41,7 +41,7 @@ async function main() {
     const card = await res.json();
     messages = card.messages;
     $("title").textContent = card.title || "圖卡分享";
-    $("desc").textContent = `共 ${messages.length} 則訊息。按下按鈕，選要傳送的聊天室。`;
+    $("desc").textContent = `共 ${messages.length} 則訊息。按下按鈕，選要傳送的聊天室。（v3）`;
 
     await liff.init({ liffId: LIFF_ID });
     if (!liff.isLoggedIn()) { liff.login({ redirectUri: location.href }); return; }
