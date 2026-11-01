@@ -9,14 +9,6 @@ const say = (t) => { $("status").textContent = t; };
 
 let messages = null;
 
-// Second button: send straight into the chat this LIFF was opened from
-// (liff.sendMessages; needs the chat_message.write scope).
-const here = document.createElement("button");
-here.id = "here";
-here.textContent = "送到目前聊天室";
-here.disabled = true;
-$("share").after(here);
-
 async function main() {
   try {
     const res = await fetch(`cards/${cardName}.json?v=${Date.now()}`);
@@ -24,17 +16,15 @@ async function main() {
     const card = await res.json();
     messages = card.messages;
     $("title").textContent = card.title || "圖卡分享";
-    $("desc").textContent = `共 ${messages.length} 則訊息。（v6）`;
+    $("desc").textContent = `共 ${messages.length} 則訊息。按下按鈕，選要傳送的聊天室。（v5）`;
 
     await liff.init({ liffId: LIFF_ID });
     if (!liff.isLoggedIn()) { liff.login({ redirectUri: location.href }); return; }
-    const ctx = liff.getContext() || {};
-    const lines = [`聊天室類型：${ctx.type || "未知"}`];
-    if (liff.isApiAvailable("shareTargetPicker")) $("share").disabled = false;
-    else lines.push("分享視窗不能用");
-    if (["utou", "group", "room", "square_chat"].includes(ctx.type)) here.disabled = false;
-    else lines.push("要從聊天室裡點開這個連結，才能用「送到目前聊天室」");
-    say(lines.join("\n"));
+    if (!liff.isApiAvailable("shareTargetPicker")) {
+      say("這個環境不能用分享功能，請在 LINE 裡打開這個連結。");
+      return;
+    }
+    $("share").disabled = false;
   } catch (e) {
     say("錯誤：" + (e.message || e));
   }
@@ -54,18 +44,6 @@ $("share").addEventListener("click", async () => {
   } catch (e) {
     say("傳送失敗：" + (e.message || e));
     $("share").disabled = false;
-  }
-});
-
-here.addEventListener("click", async () => {
-  here.disabled = true;
-  try {
-    await liff.sendMessages(messages);
-    say("已送到目前聊天室。");
-    setTimeout(() => liff.closeWindow(), 800);
-  } catch (e) {
-    say("送出失敗：" + (e.code ? e.code + " " : "") + (e.message || e));
-    here.disabled = false;
   }
 });
 
